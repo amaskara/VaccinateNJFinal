@@ -1,0 +1,119 @@
+<DOCTYPE !html>
+<html>
+    <head>
+        <title>VaccinateNJ</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/landing-styles.css') }}"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+        {% include 'head.html' %}
+    </head>
+
+    <body>
+        {% set page = 'index' %}
+        {% include 'menubar.html' %}
+
+        <div class="outerBox">
+            <div class="innerBox">
+                <div id="pictureContainer" class="animate__animated animate__fadeInDown">
+                    <img id="picture" src="{{ url_for('static', filename='assets/landingphoto.svg') }}" />
+                </div>
+
+                <div id="search-container" class="animate__animated animate__fadeInDown">
+                    <h1 class="welcome-text">Find COVID-19 vaccines in New Jersey near you</h1>
+                    <form action="vaccinesearch" method="get" id="myform">
+                        <div class="enterZip">
+                            <input type="text" id="zipcode" name="zipcode" placeholder="Enter ZIP" maxlength="5">
+                        </div>
+                        <div id="findVaccine">
+                            <input type="submit" class="submitZip" value="Find Vaccine!">
+                        </div>
+                        <div id="invalid-zip" hidden>Please enter a valid NJ zip code!</div>
+                    </form>
+                </div>
+            </div>
+            <div id="footerBox">
+                {% if signedIn is none: %}
+                <div class="signup-message">
+                    <div class="g-signin2 landing-login" data-onsuccess="onSignIn"></div>
+                    <div class="landing-msg">to be notified when vaccines are in your area!</div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="lowerBox">
+            <div class="site-info">
+                <div class = "site-info-text">
+                    <h1>About Us</h1>
+                    <p>
+                        This website was created by Rifat Islam ’23, Anika Maskara ’23, Srija Patcha ’23, and Maya
+                        Rozenshteyn
+                        ‘23, four undergraduate students at Princeton University.
+
+                        All data about vaccination sites and availability comes from information collected by volunteers
+                        on
+                        behalf of Planet Princeton. We do not represent the government or any healthcare provider. More
+                        details
+                        can be found on <a href="https://vaccinatenj.com/">vaccinatenj.com</a> </br></br>
+
+                        If you have any concerns or questions about this website, please contact us at
+                        vaccinatenjnotify@gmail.com
+                    </p>
+
+                    <h1>About New Jersey Vaccination Efforts</h1>
+                    <p>
+                        The State of New Jersey is rolling out COVID-19 vaccines step-by-step to serve all adults who
+                        live, work, or study in the state.
+                        For more information about eligibility and state-wide COVID-19 FAQs, visit the official state
+                        portal.
+                    </p>
+                </div>
+
+                <object class="nj-outline"
+                    data="{{ url_for('static', filename='assets/njoutline.svg') }}" type="image/svg+xml"></object>
+            </div>
+        </div>
+
+        <script>
+            function validateZip(event) {
+                event.preventDefault();
+                // console.log("Validation reached");
+
+                let zipcode = document.getElementById("zipcode").value;
+
+                if ((zipcode == null) || (zipcode.trim() === "")) {
+                    $('#invalid-zip').hide();
+                }
+                else {
+                    let encodedZip = encodeURIComponent(zipcode);
+                    let url = '/checkzipdict?zipcode=' + encodedZip;
+                    
+                    function checkZip(response) {
+                        if (response === "notOK") {
+                            $('#invalid-zip').show();
+                        }
+                        else {
+                            $('#invalid-zip').hide();
+                            document.getElementById('myform').submit();
+                        }
+                    }
+
+                    $.ajax(
+                        {
+                            type: 'POST',
+                            url: url,
+                            success: checkZip
+                        }
+                    );
+                }
+            }
+
+            function setup() {
+                document.getElementById('zipcode').focus();
+                let myForm = document.getElementById('myform');
+                myForm.addEventListener('submit', validateZip);
+            }
+
+            document.addEventListener('DOMContentLoaded', setup);
+        </script>
+    </body>
+</html>

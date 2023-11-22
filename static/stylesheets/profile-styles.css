@@ -1,0 +1,282 @@
+*{
+    margin: 0; 
+    padding: 0;
+    font-family: sans-serif;
+}
+
+body{
+   overflow-x: hidden; 
+}
+
+hr{
+    width: 100%;
+    height: 5px;
+}
+
+.title-text{
+    font-size: 225%;
+    width: 100%;
+    text-align: center;
+    padding: 5px;
+}
+
+.notif-title{
+    font-size: 225%;
+    width: 100%;
+    text-align: center;
+    padding: 5px;
+}
+
+.label-text{
+    font-size: 150%;
+    width: 100%;
+    text-align: center;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    padding: 5px;
+}
+
+.input-text{
+    font-size: 150%;
+    width: 100%;
+    text-align: center;
+}
+
+input[type="text"]{
+    border: 1px solid #a8a8a8;
+    border-radius: 0;
+    padding: 5px;
+}
+
+.edit-info{
+    background-color: white;
+    border: 0px;
+    position: absolute;
+    top: 0;
+    left: 2%;
+    padding: 20px;
+    margin-left: 5px;
+}
+
+.notif-settings{
+    margin-top: 3%;
+    padding: 0;
+    width: 80%;
+    margin: auto;
+}
+
+.flex-option{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: fit-content;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+}
+
+.check-box{
+    width: 40px;
+    height: 40px;
+    padding: 0 !important;
+    margin-right: 10px !important;
+}
+
+.check-svg{
+    fill: inherit !important;
+}
+
+.notif-settings input[type="checkbox"] {
+    opacity: 0;
+    position: fixed;
+    width: 0;
+}
+
+.notif-text {
+    flex: 1;
+    color: white;
+    font-size: 150%;
+    font-weight: 400;
+    padding: 5px 5px 10px 5px;
+    border: 2px solid #63a0f1;
+}
+
+.notif-descrip {
+    width: 80%;
+    margin-left: 48px;
+    margin-top: 0px !important;
+    color: white;
+    font-size: 100%;
+    font-weight: 100;
+    padding: 0px 10px 10px 10px;
+}
+
+.notif-settings label {
+    background-color: white;
+    border: 2px solid white;
+    border-radius: 5px;
+    fill: white;
+}
+
+.notif-settings input[type="checkbox"]:checked + label {
+    background-color: white;
+    border: 2px solid white;
+    border-radius: 5px;
+    fill: #63a0f1;
+}
+
+.notif-settings input[type="checkbox"]:disabled:hover + label {
+    background-color: white;
+    border: 2px solid white;
+    border-radius: 5px;
+    fill: white;
+    cursor: default !important;
+}
+
+.notif-settings input[type="checkbox"]:disabled:checked:hover + label {
+    background-color: white;
+    border: 2px solid white !important;
+    border-radius: 5px;
+    fill: #63a0f1 !important;
+}
+
+input[type="submit"]{ 
+    display: none;
+}
+
+@media only screen and (max-width: 900px) {
+    .col-sm-6{
+        height: fit-content !important;
+    }
+
+    .delete-account{
+        height: fit-content !important;
+        width: 40%;
+        position: absolute !important;
+        bottom: 0 !important;
+        top: unset !important;
+        right: unset !important;
+        left: 50%;
+        margin-left: -20%;
+        margin-bottom: 20px;
+        padding: 10px;
+        background-color: white;
+        color: rgb(238, 128, 128);
+        border: 0px;
+        border-radius: 5px;
+        font-size: 100%;
+        font-weight: 100;
+        cursor: pointer;
+    }
+
+    .title-text{
+        margin-top: 20%;
+    }
+
+    .notif-title{
+        margin-top: 5%;
+    }
+
+    .flex-option{
+        width: fit-content;
+        margin-left: 7%;
+    }
+
+    .notif-descrip{
+        margin-left: 10% !important;
+    }
+
+    .notif-settings{
+        margin-bottom: 100px;
+    }
+
+    /* .notif-settings input[type="checkbox"]:hover + label {
+        background-color: inherit;
+        border: inherit;
+        border-radius: inherit;
+    } */
+
+    .user-info{
+        margin-top: 25px;
+    }
+}
+
+.col-lg-6{
+    display: flex;
+    height: 93vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.delete-account{
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    margin-top: 20px;
+    margin-right: 40px;
+    background-color: white;
+    color: rgb(255, 0, 0);
+    border: 2px solid white;
+    border-radius: 5px;
+    font-size: 100%;
+    cursor: pointer;
+}  
+
+.save-changes{
+    padding: 10px;
+    margin-left: 5px;
+    margin-top: 0;
+    background-color: #63a0f1;
+    color: white;
+    border: 0px;
+    border-radius: 5px;
+    font-size: 100%;
+    font-weight: 100;
+    cursor: pointer;
+    flex: 1;
+}
+
+.save-msg{
+    margin-left: 20px;
+    font-size: 115%;
+}
+
+.header{
+    text-align: center;
+    grid-column: 1;
+    grid-row: 1 / span 1;
+    margin-top: 5%;
+    height: fit-content;
+}
+
+h1{
+    font-size: 170%;
+    font-weight: 100 !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .delete-account:hover{
+        border: 2px solid rgb(255, 0, 0);
+    } 
+
+    .save-changes:hover{
+        background-color: #8ab8f5;
+    }
+
+    .notif-settings input[type="checkbox"]:hover + label {
+        background-color: white;
+        border: 2px solid #a0c9ff;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .edit-svg:hover{
+        transform: scale(1.1);
+        cursor: pointer;
+    }
+}
+  

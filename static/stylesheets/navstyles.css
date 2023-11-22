@@ -1,0 +1,79 @@
+*{
+    font-family: 'DM Sans', sans-serif;
+}
+
+nav{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: fit-content !important;
+    margin-bottom: 0 !important;
+    padding-bottom: 0;
+}
+
+.navbar{
+    border: 0px;
+    border-bottom: 1px solid #a8a8a8;
+    border-radius: 0px;
+    background-color: white;
+}
+
+.navbar-brand{
+    background-color: #63a0f1; 
+    color: white;
+}
+
+.navbar-brand:hover{
+    background-color: #63a0f1; 
+    color: white;
+}
+
+.navbar-brand:focus{
+    background-color: #63a0f1; 
+    color: white;
+}
+
+.page-option{
+    font-size: 125%;
+    color: black;
+}
+
+.current{
+    color: #63a0f1 !important;
+    font-weight: 700 !important;
+}
+
+.current:hover{
+    color: #63a0f1 !important;
+    font-weight: 700 !important; 
+}
+
+.current:focus{
+    color: #63a0f1 !important;
+    font-weight: 700 !important; 
+}
+
+ul.nav a:hover{ 
+    color: #a8a8a8; 
+    background-color: white !important;
+}
+
+ul.nav a:focus{ 
+    color: #a8a8a8; 
+    background-color: white !important;
+}
+
+.sign-out{
+    color: #0058ca;
+    font-size: 125% !important;
+}
+
+.sign-out:hover{
+    color: #a8a8a8 !important;
+    background-color: white !important;
+}
+
+.sign-out:focus{
+    color: #a8a8a8 !important;
+    background-color: white !important;
+}

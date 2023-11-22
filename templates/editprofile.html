@@ -1,0 +1,218 @@
+<html>
+    <head>
+        <title>Edit Profile | VaccinateNJ</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/profile-styles.css') }}">
+        <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+        />
+        {% include 'head.html' %}
+    </head>
+    <body>
+        {% set page = 'editprofile' %}
+        {% include 'menubar.html' %}
+
+        {% if signedIn is not none: %}
+        <form action="/saveprofilechanges" method="get" id="myform">
+            <div class="row">
+                <div class="col-lg-6 col-sm-6">
+                    <div class="user-info">
+                        <div class="edit-info">
+                            <label>
+                                <div style="display: flex; justify-content: center; align-items: center;">
+                                    <input type="submit">
+                                    <svg class="edit-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="grey" style="width: 40px;">
+                                        <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
+                                        <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm9.707 5.707a1 1 0 00-1.414-1.414L9 12.586l-1.293-1.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <div class="save-changes" id="save-first">{% if first is none: %} Save Changes {% else %} Create Account {% endif %}</div>
+                                    <div class="save-msg" id="save-msg" {% if first is none: %} hidden {% endif %}>- PRESS TO FINISH CREATING YOUR ACCOUNT!</div>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="title-text" style="color: black;">Profile</div>
+                        <div class="label-text"><u>Name</u></div>
+                        <div class="input-text">
+                            <input type="text" name="first_name" value="{{first_name}}">
+                            <input type="text" name="last_name" value="{{last_name}}">
+                        </div>
+
+                        <div class="label-text"><u>Email Address</u></div>
+                        <div class="input-text">
+                            {{email}}
+                        </div><br>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-6" style="background-color: #63a0f1;">
+                    <div style="height: fit-content; width: fit-content;">
+                        <div class="notif-title" style="color: white;">Notification Settings</div>
+                        <div class="notif-settings">
+                            <div class="flex-option">
+                                <input type="checkbox" class="notif-option" id="notif1" name="notifFav" value="change" onclick="testClick1();" {% if notif == '0' or notif == '2' %} checked {% endif %}>
+                                <label class="check-box" for="notif1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="check-svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                    </svg>
+                                </label>
+                                <div class="notif-text">
+                                    When Starred Sites Update Availability
+                                </div>
+                            </div>
+                            <div class="notif-descrip">
+                                You will receive an e-mail notification within the ten minutes after a starred site switches to having vaccines available.
+                            </div>
+                            <div class="flex-option">
+                                <input type="checkbox" class="notif-option" id="notif2" name="notifDaily" value="daily" onclick="testClick2();" {% if notif == '1' or notif == '2' %} checked {% endif %}>
+                                <label class="check-box" for="notif2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="check-svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                    </svg>
+                                </label>
+                                <div class="notif-text">
+                                    Daily Summary
+                                </div>
+                            </div>
+                            <div class="notif-descrip">
+                                You will be notified via e-mail every day at about 8 AM EST, detailing the current vaccine availability for all the sites that you have starred.
+                            </div>
+                            <hr>
+                            <div class="flex-option">
+                                <input type="checkbox" class="notif-option" id="notif3" name="notifNone" value="none" onclick="testClick3();" {% if notif == '3' %} checked {% endif %}>
+                                <label class="check-box" for="notif3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="check-svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                    </svg>
+                                </label>
+                                <div class="notif-text">
+                                    None
+                                </div>
+                            </div>
+                            <div class="notif-descrip">
+                                You will receive no e-mail notifications.
+                            </div>
+                        </div>
+                        <button class="delete-account">{% if first is none %} Delete Account {% else %} Cancel {% endif %}</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        {% else: %}
+        <div class="header">
+            <h1>Sign in to edit your profile!</h1>
+        </div>
+        {% endif %}
+
+        <script>
+            // uncheck none is option 1 was checked
+            function testClick1() {
+                let notif1 = document.getElementById("notif1");
+                let notif3 = document.getElementById("notif3");
+                if (notif1.checked === true) {
+                    notif3.checked = false;
+                }
+            }
+            // uncheck none if option 2 was checked
+            function testClick2() {
+                let notif2 = document.getElementById("notif2");
+                let notif3 = document.getElementById("notif3");
+                if (notif2.checked === true) {
+                    notif3.checked = false;
+                }
+            }
+            // uncheck first two options if none was checked
+            function testClick3() {
+                let notif1 = document.getElementById("notif1");
+                let notif2 = document.getElementById("notif2");
+                let notif3 = document.getElementById("notif3");
+                if (notif3.checked === true) {
+                    notif1.checked = false;
+                    notif2.checked = false;
+                }
+            }
+
+            function deleteAccount(option) {
+                let auth2 = gapi.auth2.getAuthInstance();
+                auth2.signOut().then(function () {
+                    // console.log('User signed out and account deleted.');
+                    function redirectHome(response) {
+                        if (option === 1) {
+                            document.location.href = '/';
+                        }
+                        else {
+                            document.location.href = '/accountdeleted';
+                        }
+                    }
+
+                    let url = '/signout?delete=' + encodeURIComponent('true');
+                    $.ajax(
+                        {
+                            type: 'POST',
+                            url: url,
+                            success: redirectHome
+                        }
+                    );
+                });
+            }
+
+            function confirmDelete(event) {
+                if (confirm("Are you sure you would like to delete your account?")) {
+                    deleteAccount(0);
+                }
+            }
+
+            // differentiate between 'cancel' and 'delete account' buttons
+            function cancelOrDelete(event) {
+                event.preventDefault();
+                console.log($('.delete-account').html());
+                if ($('.delete-account').html().trim() === 'Cancel') {
+                    deleteAccount(1);
+                }
+                else {
+                    confirmDelete();
+                }
+            }
+
+            // encourage user to save changes before accessing another page
+            function saveFirst() {
+                console.log("Event recognized");
+                let saveFirst = document.getElementById('save-first');
+                $('#save-first').show();
+                saveFirst.style.animation = "shakeX";
+                saveFirst.style.animationDuration = "1s";
+            }
+
+            function setup() {
+                // stop form from submitting on enter (complicates things with
+                // the delete account button between browsers)
+                $('#myform').on('keyup keypress', function(e) {
+                    let keyCode = e.keyCode || e.which;
+                    if (keyCode === 13) {
+                        e.preventDefault();
+                        return false;
+                    }
+                });
+
+                let saveMsg = document.getElementById('save-msg');
+                saveMsg.style.animation = "flash";
+                saveMsg.style.animationDuration = "2s";
+                saveMsg.addEventListener('click', function(event) {event.preventDefault();})
+
+                $('.page-option').click(saveFirst);
+                $('.vnj-logo').click(saveFirst);
+                $('.sign-out').click(saveFirst);
+                const element = document.querySelector('.save-changes');
+
+                element.addEventListener('animationend', () => {
+                    element.style.animation = "none";
+                });
+
+                let deleteButton = document.querySelector('.delete-account');
+                deleteButton.addEventListener('click', cancelOrDelete);
+            }
+
+            $('document').ready(setup);
+
+        </script>
+    </body>
+</html>

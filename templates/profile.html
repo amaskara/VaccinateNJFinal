@@ -1,0 +1,83 @@
+<html>
+    <head>
+        <title>Profile | VaccinateNJ</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/profile-styles.css') }}">
+        {% include 'head.html' %}
+    </head>
+    <body>
+        {% set page = 'profile' %}
+        {% include 'menubar.html' %}
+
+        {% if signedIn is not none: %}
+        <div class="row">
+            <div class="col-lg-6 col-sm-6">
+                <div class="edit-info">
+                    <a href="/editprofile">
+                        <svg class="edit-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="grey" style="width: 40px;">
+                            <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
+                            <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                </div>
+                <div class="user-info">
+                    <div class="title-text" style="color: black;">Profile</div>
+                    <div class="label-text"><u>Name</u></div>
+                    <div class="input-text">
+                        {{first_name}} {{last_name}}
+                    </div>
+                    <div class="label-text"><u>Email Address</u></div>
+                    <div class="input-text">
+                        {{email}}
+                    </div><br>
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-6" style="background-color: #63a0f1;">
+                <div style="height: fit-content; width: fit-content;">
+                    <div class="title-text" style="color: white;">Notification Settings</div>
+                    <div class="notif-settings">
+                        <div class="flex-option">
+                            <input type="checkbox" class="notif-option" id="notif1" name="notifFav" value="change" onclick="testClick1();" {% if notif == '0' or notif == '2' %} checked {% endif %} disabled>
+                            <label class="check-box" for="notif1">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="check-svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                </svg>
+                            </label>
+                            <div class="notif-text">
+                                When Starred Sites Update Availability
+                            </div>
+                        </div>
+                        <div class="flex-option">
+                            <input type="checkbox" class="notif-option" id="notif2" name="notifDaily" value="daily" onclick="testClick2();" {% if notif == '1' or notif == '2' %} checked {% endif %} disabled>
+                            <label class="check-box" for="notif2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="check-svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                </svg>
+                            </label>
+                            <div class="notif-text">
+                                Daily Summary
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="flex-option">
+                            <input type="checkbox" class="notif-option" id="notif3" name="notifNone" value="none" onclick="testClick3();" {% if notif == '3' %} checked {% endif %} disabled>
+                            <label class="check-box" for="notif3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="check-svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                </svg>
+                            </label>
+                            <div class="notif-text">
+                                None
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% else: %}
+        <div class="header">
+            <h1>Sign in to view your profile!</h1>
+        </div>
+        {% endif %}
+    </body>
+</html>

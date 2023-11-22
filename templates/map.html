@@ -1,0 +1,150 @@
+<div class="map-container">
+    <div id="map"></div>
+    <div id="current-zipcode" {% if no_zip or initial_error or page == 'dashboard': %} hidden {% endif %}>Searching On Zip Code: {{ my_zip }}</div>
+</div>
+
+{% block javascript %}
+<script>
+    let map;
+    let markers = [];
+    let initialSites = {{ sites | tojson }}
+
+    // place markers on the map
+    function setMapOnAll(map) {
+        for (let i = 0; i < markers.length; i++) {
+          markers[i].setMap(map);
+      }
+    }
+
+    function setMarkers(sites) {
+      if (sites == null) {
+        // console.log("Null sites in setMarkers");
+        return;
+      }
+
+      // remove all markers from the map, dispose of old markers
+      setMapOnAll(null);
+      markers = [];
+
+      let openInfoWindow;
+
+      for (let i = 0; i < sites.length; i++) {
+        const link = "#" + sites[i]['id'];
+
+        const contentString =  "<h2 class = \"site-name\">" + sites[i]['name'] + "</h2>" +
+        "<a class = \"address\" href=\"https://www.google.com/maps/dir/?api=1&destination=" +
+        sites[i]['geoCode']['latitude'] + "," + sites[i]['geoCode']['longitude']+ "\">" +
+        sites[i]['address'] + "<br>" + sites[i]['city'] + ", " + sites[i]['city'] + " County, NJ " +
+        sites[i]['zipCode'] + "</a><br><a href=\"" + link + "\">See More</a>";
+
+        marker = new google.maps.Marker({
+          position: sites[i]['location'],
+          map: map
+        })
+        markers[i] = marker;
+
+        let infowindow = new google.maps.InfoWindow();
+
+        google.maps.event.addListener(marker, 'click', (function(marker, content, infowindow) {
+            return function() {
+              if (openInfoWindow) {
+                  openInfoWindow.close();
+              }
+              infowindow.setContent(contentString);
+              openInfoWindow = infowindow;
+              infowindow.open(map, marker);
+            };
+        })(marker, contentString, infowindow));
+
+        marker.setMap(map);
+      }
+    }
+
+    function hideMarkers(sites) {
+      // console.log('Hide markers executed');
+      document.querySelector('.map-container').style.position = 'sticky';
+      document.querySelector('.map-container').style.top = '15%';
+      $('.save-buttons').show();
+
+      map.setCenter(null);
+
+      let availabilityFilter = document.querySelector('.availability-filter');
+      let eligibilityFilter = document.querySelector('.eligibility-filter');
+      let radiusFilter = document.querySelector('.radius-filter');
+
+      /* document.cookie = "availabilityFilter=" + availabilityFilter.value;
+      document.cookie = "eligibilityFilter=" + eligibilityFilter.value;
+      if (radiusFilter !== null) 
+        document.cookie = "radius=" + radiusFilter.value; */
+
+      let bounds = new google.maps.LatLngBounds();
+
+      let countShown = 0;
+
+      if (sites == null) {
+        console.log("Null sites");
+        sites = initialSites;
+      }
+
+      for (i = 0; i < markers.length; i++) {
+
+        if (radiusFilter !== null && sites[i]['distance'] !== null) {
+          if ((radiusFilter.value !== "40+") && (sites[i]['distance'] > Number(radiusFilter.value))) {
+            for (j = i; j < markers.length; j++) {
+              markers[j].setVisible(false);
+              document.getElementById(sites[j]['id']).hidden = true;
+            }
+            break;
+          }
+        }
+
+        if ((availabilityFilter.value !== "--") && (sites[i]['availabilityStatus'] !== availabilityFilter.value)) {
+          markers[i].setVisible(false);
+          document.getElementById(sites[i]['id']).hidden = true;
+          continue;
+        }
+
+        if ((eligibilityFilter.value !== "--") && (sites[i]['eligibility'] !== eligibilityFilter.value)) {
+          markers[i].setVisible(false);
+          document.getElementById(sites[i]['id']).hidden = true;
+          continue;
+        }
+
+        markers[i].setVisible(true);
+        bounds.extend(sites[i].location);
+        document.getElementById(sites[i]['id']).hidden = false;
+        countShown++;
+      }
+
+      map.fitBounds(bounds);
+
+      if (countShown === 0) {
+        map.setCenter({lat: 40, lng: -74});
+        $('.save-buttons').hide();
+        if (document.URL.includes("vaccinesearch")) {
+          document.querySelector('.map-container').style.position = 'relative';
+          document.querySelector('.map-container').style.top = '11.5%';
+        }
+      }
+    }
+
+    function initMap() {
+      // console.log("Map created");
+
+      map = new google.maps.Map(document.getElementById("map"), {});
+
+      setMarkers(initialSites);
+
+      let bounds = new google.maps.LatLngBounds();
+      for (let i = 0; i < initialSites.length; i++) {
+        bounds.extend(initialSites[i].location);
+      }
+      map.fitBounds(bounds);
+
+      hideMarkers(initialSites);
+    }
+</script>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxQL_Pgkb4nfUdYaqA39RJinHByzetfKg&callback=initMap"></script>
+
+{% endblock %}

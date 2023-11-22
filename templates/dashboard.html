@@ -1,0 +1,130 @@
+<DOCTYPE !html>
+<html>
+
+  <head>
+    <title>Dashboard | VaccinateNJ</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/sitedisplayer.css') }}">
+    {% include 'head.html' %}
+    <script src="{{ url_for('static', filename='scripts/savesites.js') }}"></script>
+  </head>
+
+  <body>
+    {% set page = 'dashboard' %}
+    {% include 'menubar.html' %}
+    {% if signedIn is not none: %}
+    {% if inDatabase == True: %}
+
+    <div class="dashboard-header">
+      <h1>Welcome {{ user_name }}, to Your Vaccination Dashboard </h1>
+      <h2 class="summary"></h2>
+    </div>
+
+    {% if sites| length != 0: %}
+
+    <div class="grid-wrapper">
+      <div class="vaccine-sites" style="grid-row: 1 / span 1;">
+
+        <div class="filter dashboard-filter top-filter">
+          <label for="availability-filter">Availability: </label>
+          <select class="availability-filter form-control">
+            <option>--</option>
+            <option>Available</option>
+            <option>Wait List</option>
+            <option>None</option>
+            <option>Unknown</option>
+          </select>
+        </div>
+
+        <div class="filter dashboard-filter bottom-filter">
+          <label for="eligibility-filter">Eligibility: </label>
+          <select class="eligibility-filter form-control">
+            <option>--</option>
+            <option>State Wide</option>
+            <option>County Residents Only</option>
+            <option>Municipal Residents Only</option>
+            <option>Patients Only</option>
+            <option>Unknown</option>
+          </select>
+        </div>
+
+        {% include 'site-box.html' %}
+      </div>
+
+      {% include 'map.html' %}
+    </div>
+
+    {% endif %}
+
+    {% else: %}
+    <div class="header">
+      <h1>Please <a href="{{ url_for('editprofile') }}">save your profile info </a>before accessing your dashboard </h1>
+    </div>
+    {% endif %}
+
+    {% else: %}
+    <div class="header">
+      <h1>Sign in to view your dashboard!</h1>
+    </div>
+    {% endif %}
+
+    <button class="scrolltotop-button">^</button>
+    <script src = "{{ url_for('static', filename='scripts/scroll.js') }}"></script>
+
+    <script>
+      'use strict';
+
+      let number_of_sites = document.getElementsByClassName("site-box").length;
+      let number_of_availabile_sites = document.getElementsByClassName("available").length;
+      let element = document.getElementsByClassName("summary")[0];
+
+      let summaryText = "You are currently watching " + number_of_sites;
+
+      if (number_of_sites === 1) {
+        summaryText += " site. ";
+      }
+      else {
+        summaryText += " sites. ";
+      }
+
+      if (number_of_availabile_sites === 0) {
+        summaryText += "None";
+      }
+      else {
+        summaryText += String(number_of_availabile_sites);
+      }
+
+      summaryText += " of them ";
+
+      if (number_of_availabile_sites === 1) {
+        summaryText += "has ";
+      }
+      else {
+        summaryText += "have ";
+      }
+
+      summaryText += "vaccines available.";
+
+      element.textContent = summaryText;
+
+      function setup() {
+          let availFilter = document.querySelector('.availability-filter');
+          if (availFilter !== null) {
+              availFilter.addEventListener("change", function(event) {
+                  console.log('Event change listened to.');
+                  hideMarkers(initialSites);
+              });
+          }
+
+          let eligibilityFilter = document.querySelector('.eligibility-filter');
+          if (eligibilityFilter !== null) {
+              eligibilityFilter.addEventListener("change", function(event) {
+                  console.log('Event change listened to.');
+                  hideMarkers(initialSites);
+              });
+          }
+      }
+
+      document.addEventListener('DOMContentLoaded', setup);
+    </script>
+  </body>
+</html>

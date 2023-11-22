@@ -1,0 +1,228 @@
+*{
+    margin: 0; 
+    padding: 0;
+    font-family: 'DM Sans', sans-serif;
+}
+
+body{
+    overflow-x: hidden; 
+}
+
+.welcome-text{
+    text-align: center;
+    padding-bottom: 1%;
+    font-weight: 100;
+    font-size: 45px;
+}
+
+.site-info{
+    margin-left: 20%;
+    margin-right: 20%; 
+    padding-top: 15%;
+    padding-bottom: 15%;
+    font-size: 20px;
+    color: white;
+    font-weight: 400;
+    display: flex;
+}
+
+.site-info a{
+    color: white;
+    text-decoration: underline;
+}
+
+.site-info-text{
+    width: 60%;
+}
+
+.nj-outline{
+    width: 40%;
+}
+
+#pictureContainer{
+    width: 52%;
+    border-color: red;
+}
+
+#search-container{
+    margin: auto;
+    width: 40%;
+}
+
+.enterZip{
+    width: 40%;
+    height: 8%;
+    max-height: 50px;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+    
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    border: 2px solid black;
+    padding: 10px 10px 10px 5px;
+    outline-color: #63a0f1;
+}
+
+#zipcode{
+    flex: 1;
+    text-align: center;
+  
+    overflow: hidden;
+    background-color: inherit;
+    border: none;
+    height: 100%;
+    min-height: fit-content;
+    min-height: -moz-fit-content;
+  
+    font-size: 160%;
+}
+
+#findVaccine{
+    margin: auto;
+    margin-top: 10px;
+    position: relative;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 125%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%
+}
+
+.submitZip{
+    margin: auto;
+    align-items: center;
+    text-align: center;
+    border-radius: 10px;
+    border: 0px;
+    padding: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #63a0f1;
+    color: white;
+}
+
+#footerBox{
+    margin: auto;
+    width: fit-content;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.signup-message{
+    width: fit-content;
+    width: -moz-fit-content;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    color: #000000;
+}
+
+.landing-login{
+    width: fit-content;
+}
+
+.landing-msg{
+    flex: 1;
+    padding-top: 2%;
+    margin-left: 10px;
+}
+
+@media screen and (max-width: 800px) {
+    .signup-message{
+        width: fit-content;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: #000000;
+    }
+    
+    .landing-login{
+        height: fit-content;
+    }
+    
+    .landing-msg{
+        flex: 1;
+        padding: 0;
+        margin-top: 10px;
+        height: fit-content;
+        width: 100%;
+    }
+
+    .innerBox{
+        flex-direction: column;
+       
+        align-items: center;
+        justify-content: center;
+    }
+
+    #search-container{
+        width: 100%;
+    }
+
+    #pictureContainer{
+        width: 100%;
+    }
+
+    .site-info{
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .site-info-text{
+        width: 100%;
+    }
+
+    .nj-outline{
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+::placeholder{
+    color: #a8a8a8;
+}
+
+#zipcode:focus{
+    outline: none;
+    background-color: none;
+}
+
+.submitZip:hover{
+    cursor: pointer;
+}
+
+.outerBox {
+    width: 100vw;
+    margin-top: 2%;
+}
+
+.lowerBox {
+    width: 100vw;
+    background-color: #63A0F1 ;
+    min-height: 80vh;
+    margin-top: 5%;
+}
+
+.innerBox{
+    margin: auto;
+    padding: 0;
+    width: 80%;
+    display: flex;
+}
+
+#invalid-zip{
+    color: red; 
+    margin-top: 15px; 
+    font-size: 120%;
+    width: 100%;
+    text-align: center;
+}
+
